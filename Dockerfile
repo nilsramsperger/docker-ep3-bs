@@ -21,4 +21,8 @@ RUN cd /var/www/html/ \
     && php composer.phar install
 RUN cd /var/www/html/config/autoload \
     && mv local.php.dist local.php
-CMD ["bash"]
+RUN cd /var/www/html/config \
+    && mv init.php.dist init.php
+RUN cd /var/www/html \
+    && chown www-data:www-data -R *
+CMD ["apachectl", "-D", "FOREGROUND"]
